@@ -25,7 +25,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import org.fxmisc.richtext.InlineStyleTextArea;
+import org.fxmisc.richtext.StyledTextArea;
 import org.fxmisc.richtext.StyledTextArea;
 
 import java.io.IOException;
@@ -139,7 +139,7 @@ public class FindReplaceController implements Initializable {
             // New code (December 2013) - start (by Nick, Devon, and Jon)
 
             //get text area of the current tab
-            InlineStyleTextArea ta = (InlineStyleTextArea) desktop.getTextTabPane()
+            StyledTextArea ta = (StyledTextArea) desktop.getTextTabPane()
                     .getSelectionModel(
             ).getSelectedItem().getContent();
             //get the system clipboard

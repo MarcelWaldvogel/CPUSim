@@ -27,7 +27,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Tab;
-import org.fxmisc.richtext.InlineStyleTextArea;
+import org.fxmisc.richtext.StyledTextArea;
 
 import java.io.File;
 import java.util.*;
@@ -188,7 +188,7 @@ public class HighlightManager implements ChangeListener<Machine.StateWrapper>
                 return;
             }
             Tab newTabForFile = desktop.getTabForFile(file);
-            InlineStyleTextArea text = (InlineStyleTextArea) newTabForFile.getContent();
+            StyledTextArea text = (StyledTextArea) newTabForFile.getContent();
             int line = sourceLine.getLine();
             int start = getLineStartOffset(text.getText(), line);
             int end = getLineEndOffset(text.getText(), line);
@@ -210,7 +210,7 @@ public class HighlightManager implements ChangeListener<Machine.StateWrapper>
                 return;
             }
             Tab tabForFile = desktop.getTabForFile(file);
-            InlineStyleTextArea text = (InlineStyleTextArea) tabForFile.getContent();
+            StyledTextArea text = (StyledTextArea) tabForFile.getContent();
             LineNumAndBreakpointFactory lFactory =
                     (LineNumAndBreakpointFactory) text.getParagraphGraphicFactory();
             // change the background of the label in left column back to the original color
@@ -240,7 +240,7 @@ public class HighlightManager implements ChangeListener<Machine.StateWrapper>
                     return;
                 }
                 Tab newTabForFile = desktop.getTabForFile(file);
-                InlineStyleTextArea text = (InlineStyleTextArea) newTabForFile.getContent();
+                StyledTextArea text = (StyledTextArea) newTabForFile.getContent();
                 int line = sourceLine.getLine();
                 int start = getLineStartOffset(text.getText(), line);
                 int end = getLineEndOffset(text.getText(), line);

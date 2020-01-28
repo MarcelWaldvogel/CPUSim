@@ -818,7 +818,7 @@ public class DesktopController implements Initializable
 
             // break the node into pages and print them
             final List<Node> pages = getPagesForPrinting(
-                    (InlineStyleTextArea<StyleInfo>) nodeToBePrinted);
+                    (StyledTextArea<StyleInfo>) nodeToBePrinted);
             PageRange[] ranges = currentPrinterJob.getJobSettings().getPageRanges();
             if (ranges != null && ranges.length > 0) {
                 for (PageRange range : ranges) {
@@ -876,7 +876,7 @@ public class DesktopController implements Initializable
      * @param nodeToBePrinted the StyledTextArea that has all the data to be printed
      * @return a List of the StyledTextAreas each constituting one page to be printed.
      */
-    private List<Node> getPagesForPrinting(InlineStyleTextArea<StyleInfo>
+    private List<Node> getPagesForPrinting(StyledTextArea<StyleInfo>
                                                    nodeToBePrinted) {
         PageLayout layout = currentPrinterJob.getJobSettings().getPageLayout();
         LinkedList<Node> result = new LinkedList<>();
@@ -893,18 +893,18 @@ public class DesktopController implements Initializable
         int lineCount = Integer.MAX_VALUE;  // the number of lines so far on current page
         int pageCount = 0; // the number of pages so far
         int totalNumLines = nodeToBePrinted.getParagraphs().size();
-        InlineStyleTextArea<StyleInfo> page = null;
+        StyledTextArea<StyleInfo> page = null;
         for (Paragraph<StyleInfo> p : nodeToBePrinted.getParagraphs()) {
             if (lineCount >= numLinesPerPage) {
                 // start a new page to be filled with lines of text
-                page = new InlineStyleTextArea<>(new StyleInfo(), StyleInfo::toCss);
+                page = new StyledTextArea(new StyleInfo(), StyleInfo::toCss);
                 assmFontData.setFontAndBackground(page);
                 page.setWrapText(false); // can't print wrapped text
                 page.setParagraphGraphicFactory(LineNumPrintingFactory.get(page,
                         numLinesPerPage * pageCount, totalNumLines, otherSettings
                                 .showLineNumbers.get() ? (digits -> "%" + digits + "d")
                                 : (digits -> "")));
-                final InlineStyleTextArea<StyleInfo> immutablePage = page;
+                final StyledTextArea<StyleInfo> immutablePage = page;
                 page.textProperty().addListener((obs, oldText, newText) -> {
                     immutablePage.setStyleSpans(0, codePaneController.computeStyleSpans
                             (newText));
@@ -935,7 +935,7 @@ public class DesktopController implements Initializable
      *
      * @return the number of points in height of each line
      */
-    private double computeParagraphHeight(InlineStyleTextArea<StyleInfo> node) {
+    private double computeParagraphHeight(StyledTextArea<StyleInfo> node) {
         VirtualFlow<?, ?> vf = (VirtualFlow<?, ?>) node.lookup(".virtual-flow");
         return vf.visibleCells().get(0).getNode().getLayoutBounds().getHeight();
    }
@@ -967,7 +967,7 @@ public class DesktopController implements Initializable
      * add the keyboard shortcuts of some menu items so that they also work
      * properly when focus is on the given codeArea.
      */
-    public void addMenuKeyboardShortcuts(InlineStyleTextArea<StyleInfo> codeArea) {
+    public void addMenuKeyboardShortcuts(StyledTextArea<StyleInfo> codeArea) {
         codeArea.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.Y) && event.isShortcutDown())
             // ctrl-Y opens Fetch sequence dialog
@@ -995,7 +995,7 @@ public class DesktopController implements Initializable
      */
     @FXML
     protected void handleUndo(ActionEvent event) {
-//        InlineStyleTextArea codeArea = (InlineStyleTextArea) textTabPane
+//        StyledTextArea codeArea = (StyledTextArea) textTabPane
 //                .getSelectionModel().getSelectedItem().getContent();
 //        codeArea.undo();
     }
@@ -1006,7 +1006,7 @@ public class DesktopController implements Initializable
      */
     @FXML
     protected void handleRedo(ActionEvent event) {
-//        InlineStyleTextArea codeArea = (InlineStyleTextArea) textTabPane
+//        StyledTextArea codeArea = (StyledTextArea) textTabPane
 //                .getSelectionModel().getSelectedItem().getContent();
 //        codeArea.redo();
     }
@@ -1018,7 +1018,7 @@ public class DesktopController implements Initializable
      */
     @FXML
     protected void handleCut(ActionEvent event) {
-        InlineStyleTextArea codeArea = (InlineStyleTextArea) textTabPane
+        StyledTextArea codeArea = (StyledTextArea) textTabPane
                 .getSelectionModel().getSelectedItem().getContent();
         codeArea.cut();
     }
@@ -1030,7 +1030,7 @@ public class DesktopController implements Initializable
      */
     @FXML
     protected void handleCopy(ActionEvent event) {
-        InlineStyleTextArea codeArea = (InlineStyleTextArea) textTabPane
+        StyledTextArea codeArea = (StyledTextArea) textTabPane
                 .getSelectionModel().getSelectedItem().getContent();
         codeArea.copy();
     }
@@ -1042,7 +1042,7 @@ public class DesktopController implements Initializable
      */
     @FXML
     protected void handlePaste(ActionEvent event) {
-        InlineStyleTextArea codeArea = (InlineStyleTextArea) textTabPane
+        StyledTextArea codeArea = (StyledTextArea) textTabPane
                 .getSelectionModel().getSelectedItem().getContent();
         codeArea.paste();
     }
@@ -1054,7 +1054,7 @@ public class DesktopController implements Initializable
      */
     @FXML
     protected void handleSelectAll(ActionEvent event) {
-        InlineStyleTextArea codeArea = (InlineStyleTextArea) textTabPane
+        StyledTextArea codeArea = (StyledTextArea) textTabPane
                 .getSelectionModel().getSelectedItem().getContent();
         codeArea.selectAll();
     }
@@ -1068,7 +1068,7 @@ public class DesktopController implements Initializable
     @FXML
     protected void handleToggleComment(ActionEvent event) {
         Tab currTab = textTabPane.getSelectionModel().getSelectedItem();
-        InlineStyleTextArea codeArea = (InlineStyleTextArea) currTab.getContent();
+        StyledTextArea codeArea = (StyledTextArea) currTab.getContent();
 
         int lower = Math.min(codeArea.getCaretPosition(), codeArea.getAnchor());
         int upper = Math.max(codeArea.getCaretPosition(), codeArea.getAnchor());
@@ -1564,7 +1564,7 @@ public class DesktopController implements Initializable
             return;
         }
         // update the codeArea's font data
-        InlineStyleTextArea codeArea = (InlineStyleTextArea) t.getContent();
+        StyledTextArea codeArea = (StyledTextArea) t.getContent();
         assmFontData.setFontAndBackground(codeArea);
         // redraw the codeArea with the new data, including breakpoints and
         // selected text
@@ -1591,7 +1591,7 @@ public class DesktopController implements Initializable
 
         // fromRootController the new tab and text area
         CodePaneTab newTab = new CodePaneTab();
-        InlineStyleTextArea<StyleInfo> codeArea = new InlineStyleTextArea<>(new
+        StyledTextArea<StyleInfo> codeArea = new StyledTextArea<>(new
                 StyleInfo(), StyleInfo::toCss);
         codeArea.setWrapText(otherSettings.lineWrap.get());
         assmFontData.setFontAndBackground(codeArea);
@@ -1703,7 +1703,7 @@ public class DesktopController implements Initializable
                 .filter(t -> file.equals(((CodePaneTab) t).getFile()))
                 .findFirst();
         if (existingTab.isPresent()) {
-            return ((LineNumAndBreakpointFactory) ((InlineStyleTextArea)
+            return ((LineNumAndBreakpointFactory) ((StyledTextArea)
                        existingTab.get().getContent()).getParagraphGraphicFactory())
                 .getAllBreakPointLineNumbers();
         }
@@ -2046,7 +2046,7 @@ public class DesktopController implements Initializable
             boolean ancEqCar = false;
             if (!noTabSelected.get()) {
                 Tab currTab = textTabPane.getSelectionModel().getSelectedItem();
-                InlineStyleTextArea codeArea = (InlineStyleTextArea) currTab.getContent();
+                StyledTextArea codeArea = (StyledTextArea) currTab.getContent();
                 canUndo = codeArea.isUndoAvailable();
                 canRedo = codeArea.isRedoAvailable();
                 ancEqCar = (codeArea.getAnchor() == codeArea.getCaretPosition());
@@ -2497,7 +2497,7 @@ public class DesktopController implements Initializable
             return saveAs(theTab);
         }
 
-        InlineStyleTextArea textToSave = (InlineStyleTextArea) theTab.getContent();
+        StyledTextArea textToSave = (StyledTextArea) theTab.getContent();
         if (theTab.getDirty()) {
             boolean successfulSave = saveTextFile(theTab.getFile(), textToSave.getText());
 
@@ -2543,7 +2543,7 @@ public class DesktopController implements Initializable
 
         if (finalFileToSave != null) {
 
-            InlineStyleTextArea textToSave = (InlineStyleTextArea) tab.getContent();
+            StyledTextArea textToSave = (StyledTextArea) tab.getContent();
 
             saveTextFile(finalFileToSave, textToSave.getText());
 
@@ -3484,7 +3484,7 @@ public class DesktopController implements Initializable
                     .showAndWait();
             return;
         }
-        InlineStyleTextArea textArea = (InlineStyleTextArea) getTabForFile(file)
+        StyledTextArea textArea = (StyledTextArea) getTabForFile(file)
                 .getContent();
         textArea.selectRange(token.offset, token.offset + token.contents.length());
     }
