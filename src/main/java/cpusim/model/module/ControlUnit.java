@@ -16,14 +16,14 @@ package cpusim.model.module;
 
 import cpusim.model.Machine;
 import cpusim.model.MachineInstruction;
-import cpusim.model.Module;
+import cpusim.model.CPUModule;
 import java.io.Serializable;
 
 /**
  * The Control Unit class
  */
 @SuppressWarnings("serial")
-public class ControlUnit extends Module
+public class ControlUnit extends CPUModule
         implements Serializable
 {
 
@@ -121,7 +121,7 @@ public class ControlUnit extends Module
      * copies the data from the current module to a specific module
      * @param newModule the micro instruction that will be updated
      */
-    public void copyDataTo(Module newModule)
+    public void copyDataTo(CPUModule newModule)
     {
         assert newModule instanceof ControlUnit :
                 "Passed non-ControlUnit to ControlUnit.copyDataTo()";

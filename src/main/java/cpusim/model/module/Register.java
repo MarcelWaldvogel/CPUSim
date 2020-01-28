@@ -31,7 +31,7 @@
 */  
 package cpusim.model.module;
 
-import cpusim.model.Module;
+import cpusim.model.CPUModule;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
@@ -42,7 +42,7 @@ import java.math.BigInteger;
 /**
  * Edit the parameters associated with any register or fromRootController new or delete old registers.
  */
-public class Register extends Module
+public class Register extends CPUModule
 {
     //------------------------
     //instance variables
@@ -242,7 +242,7 @@ public class Register extends Module
      * copies the data from the current module to a specific module
      * @param comp the micro instruction that will be updated
      */
-    public void copyDataTo(Module comp)
+    public void copyDataTo(CPUModule comp)
     {
         assert comp instanceof Register :
                 "Passed non-Register to Register.copyDataTo()";

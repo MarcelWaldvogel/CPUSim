@@ -12,7 +12,7 @@
 package cpusim.gui.editmodules;
 
 import cpusim.Mediator;
-import cpusim.model.Module;
+import cpusim.model.CPUModule;
 import cpusim.gui.util.EditingNonNegativeIntCell;
 import cpusim.gui.util.EditingStrCell;
 import cpusim.gui.util.FXMLLoaderFactory;
@@ -55,7 +55,7 @@ public class RAMsTableController
         super(mediator);
         this.currentRAMs = machine.getAllRAMs();
         this.prototype = new RAM("???",128, 8);
-        clones = (Module[]) createClones();
+        clones = (CPUModule[]) createClones();
 
         FXMLLoader fxmlLoader = FXMLLoaderFactory.fromRootController(this, "RamTable.fxml");
 
@@ -155,7 +155,7 @@ public class RAMsTableController
      * getter for prototype of the right subclass
      * @return the prototype of the subclass
      */
-    public Module getPrototype()
+    public CPUModule getPrototype()
     {
         return prototype;
     }

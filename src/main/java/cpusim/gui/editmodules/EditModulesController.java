@@ -9,7 +9,7 @@ package cpusim.gui.editmodules;
 
 import cpusim.model.Machine;
 import cpusim.Mediator;
-import cpusim.model.Module;
+import cpusim.model.CPUModule;
 import cpusim.gui.desktop.DesktopController;
 import cpusim.gui.editmodules.arrayregisters.EditArrayRegistersController;
 import cpusim.gui.help.HelpController;
@@ -72,7 +72,7 @@ public class EditModulesController implements Initializable {
     Machine machine;
     DesktopController desktop;
 
-    private Module selectedSet = null;
+    private CPUModule selectedSet = null;
     private TableView activeTable;
     private ChangeTable tableMap;
     private ContentChangeListener contentChangeListener;
@@ -226,7 +226,7 @@ public class EditModulesController implements Initializable {
 
         //now test to see if it is used by any micros and if so,
         //warn the user that those micros will be deleted too.
-        Module oldModule =
+        CPUModule oldModule =
                 getController(CURRENT).getCurrentFromClone(selectedSet);
         if (oldModule != null) {
             HashMap microsThatUseIt = machine.getMicrosThatUse(oldModule);
@@ -278,7 +278,7 @@ public class EditModulesController implements Initializable {
     @FXML
     public void onDuplicateButtonClick(ActionEvent e) {
         //add a new item at the end of the list.
-        Module newObject = (Module) selectedSet.clone();
+        CPUModule newObject = (CPUModule) selectedSet.clone();
         String uniqueName = createUniqueDuplicatedName(activeTable.getItems(),
                 newObject.getName());
         newObject.setName(uniqueName);
@@ -522,10 +522,10 @@ public class EditModulesController implements Initializable {
     private Vector sortVectorByName(Vector modules) {
         for (int i = 0; i < modules.size() - 1; i++) {
             //find the smallest from positions i to the end
-            String nameOfSmallest = ((Module) modules.elementAt(i)).getName();
+            String nameOfSmallest = ((CPUModule) modules.elementAt(i)).getName();
             int indexOfSmallest = i;
             for (int j = i + 1; j < modules.size(); j++) {
-                Module next = (Module) modules.elementAt(j);
+                CPUModule next = (CPUModule) modules.elementAt(j);
                 if (next.getName().compareTo(nameOfSmallest) < 0) {
                     indexOfSmallest = j;
                     nameOfSmallest = next.getName();
@@ -543,12 +543,12 @@ public class EditModulesController implements Initializable {
      * a listener listening for changes to the table selection and
      * update the status of buttons.
      */
-    class ContentChangeListener implements ChangeListener<Module> {
+    class ContentChangeListener implements ChangeListener<CPUModule> {
 
         @Override
-        public void changed(ObservableValue<? extends Module> selected,
-                            Module oldModule,
-                            Module newModule) {
+        public void changed(ObservableValue<? extends CPUModule> selected,
+                            CPUModule oldModule,
+                            CPUModule newModule) {
             if (newModule == null) {
                 selectedSet = null;
                 deleteButton.setDisable(true);

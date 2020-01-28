@@ -846,10 +846,10 @@ public class Validate
      * check if one or more names is "<none>"   (ConditionBit)
      * @param list a list of module objects
      */
-    public static void someNameIsNone(Module[] list)
+    public static void someNameIsNone(CPUModule[] list)
     {
         //find if any existing micro already has the name "<none>"
-        for (Module aList : list) {
+        for (CPUModule aList : list) {
             if (aList.getName().equals("<none>")) {
                 throw new ValidationException("A ConditionBit has been given the " +
                         "name \"<none>\".\nThat name is reserved to indicate" +

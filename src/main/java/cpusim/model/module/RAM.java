@@ -20,7 +20,7 @@
 package cpusim.model.module;
 
 import cpusim.ExecutionException;
-import cpusim.model.Module;
+import cpusim.model.CPUModule;
 import cpusim.assembler.AssembledInstructionCall;
 import cpusim.util.LoadException;
 import cpusim.util.SourceLine;
@@ -35,7 +35,7 @@ import java.util.List;
  * This class models RAM.  All addressable units ("cells") have the same
  * number of bits, but that number can be any value from 1 to 64.
  */
-public class RAM extends Module
+public class RAM extends CPUModule
         implements cpusim.util.CPUSimConstants
 {
     /** the data stored in the ram cells */
@@ -412,7 +412,7 @@ public class RAM extends Module
      * copies the data from the current module to a specific module
      * @param comp the micro instruction that will be updated
      */
-    public void copyDataTo(Module comp) {
+    public void copyDataTo(CPUModule comp) {
         assert comp instanceof RAM :
                 "Passed non-RAM to RAM.copyDataTo()";
         RAM newRAM = (RAM) comp;

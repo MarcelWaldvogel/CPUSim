@@ -23,7 +23,7 @@
 
 package cpusim.model.module;
 
-import cpusim.model.Module;
+import cpusim.model.CPUModule;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,7 +31,7 @@ import javafx.collections.ObservableList;
 /**
  * A register array is an indexed list of any number of registers.
  */
-public class RegisterArray extends Module
+public class RegisterArray extends CPUModule
 {
 
     //------------------------
@@ -270,7 +270,7 @@ public class RegisterArray extends Module
      * copies the data from the current module to a specific module
      * @param module the micro instruction that will be updated
      */
-    public void copyDataTo(Module module)
+    public void copyDataTo(CPUModule module)
     {
         assert module instanceof RegisterArray :
                 "Passed non-RegisterArray to RegisterArray.copyDataTo()";

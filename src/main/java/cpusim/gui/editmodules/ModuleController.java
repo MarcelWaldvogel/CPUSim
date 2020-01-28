@@ -14,7 +14,7 @@ package cpusim.gui.editmodules;
 
 import cpusim.model.Machine;
 import cpusim.Mediator;
-import cpusim.model.Module;
+import cpusim.model.CPUModule;
 import cpusim.model.module.Register;
 import cpusim.model.module.RegisterArray;
 
@@ -33,7 +33,7 @@ public abstract class ModuleController
     public Machine machine;      //the current machine being simulated
     HashMap assocList;  //associates the current modules
     //with the edited clones; key = new clone, value = original
-    public Module[] clones;  //the current clones
+    public CPUModule[] clones;  //the current clones
     Node parentFrame; //for the parent of error messages
 
     //-------------------------------
@@ -68,10 +68,10 @@ public abstract class ModuleController
      * @param newName the name of the new hardware module
      * @return a new hardware module with the given name
      */
-    public Module getNewModule(String newName)
+    public CPUModule getNewModule(String newName)
     {
-        Module prototype = getPrototype();
-        Module clone = (Module) prototype.clone();
+        CPUModule prototype = getPrototype();
+        CPUModule clone = (CPUModule) prototype.clone();
         clone.setName(newName);
         return clone;
     }
@@ -81,7 +81,7 @@ public abstract class ModuleController
      *
      * @return an array of clones of the current module.
      */
-    public Module[] getClones()
+    public CPUModule[] getClones()
     {
         assert clones != null :
                 "clones == null in ModuleFactory.getClones()";
@@ -93,9 +93,9 @@ public abstract class ModuleController
      * @param clone the clone of the original module
      * @return the original hardware module of the given clone.
      */
-    public Module getCurrentFromClone(Module clone)
+    public CPUModule getCurrentFromClone(CPUModule clone)
     {
-        return (Module) assocList.get(clone);
+        return (CPUModule) assocList.get(clone);
     }
 
     /**
@@ -143,13 +143,13 @@ public abstract class ModuleController
      *
      * @return the clones of the current modules
      */
-    public Module[] createClones()
+    public CPUModule[] createClones()
     {
-        ObservableList<? extends Module> currentModules = getCurrentModules();
-        Module[] clones = (Module[])
+        ObservableList<? extends CPUModule> currentModules = getCurrentModules();
+        CPUModule[] clones = (CPUModule[])
                 Array.newInstance(this.getModuleClass(), currentModules.size());
         for (int i = 0; i < currentModules.size(); i++) {
-            Module clone = (Module) currentModules.get(i).clone();
+            CPUModule clone = (CPUModule) currentModules.get(i).clone();
             clones[i] = clone;
             assocList.put(clone, currentModules.get(i));
         }
@@ -165,11 +165,11 @@ public abstract class ModuleController
      * @param list a list of modules
      * @return a list of updated modules
      */
-    public Vector<Module> createNewModulesList(Module[] list)
+    public Vector<CPUModule> createNewModulesList(CPUModule[] list)
     {
-        Vector<Module> newModules = new Vector<>();
-        for (Module module : list) {
-            Module oldModule = (Module) assocList.get(module);
+        Vector<CPUModule> newModules = new Vector<>();
+        for (CPUModule module : list) {
+            CPUModule oldModule = (CPUModule) assocList.get(module);
             if (oldModule != null) {
                 //if the new incr is just an edited clone of an old module,
                 //then just copy the new data to the old module
@@ -213,7 +213,7 @@ public abstract class ModuleController
      *
      * @return the prototype of the right subclass
      */
-    abstract Module getPrototype();
+    abstract CPUModule getPrototype();
 
     /**
      * returns the class object for the controller's objects
@@ -227,7 +227,7 @@ public abstract class ModuleController
      *
      * @return a list of the current modules
      */
-    public abstract ObservableList<? extends Module> getCurrentModules();
+    public abstract ObservableList<? extends CPUModule> getCurrentModules();
 
     /**
      * checks if new modules of this class can be created.

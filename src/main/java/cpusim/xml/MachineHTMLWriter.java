@@ -223,7 +223,7 @@ public class MachineHTMLWriter
                         "\"><CENTER>(none)</CENTER></TD></TR>");
             else
                 for (int j = 0; j < moduleVectors[i].size(); j++)
-                    out.println(((Module) moduleVectors[i].get(j)
+                    out.println(((CPUModule) moduleVectors[i].get(j)
                             ).getHTMLDescription());
             out.println("</TABLE><P></P>");
         }

@@ -41,7 +41,7 @@ import java.util.*;
  * a new microInstructionStack of HashMaps as an element in the
  * machineInstructionStack.
  */
-public class Machine extends Module implements Serializable, CPUSimConstants {
+public class Machine extends CPUModule implements Serializable, CPUSimConstants {
 
     private static final long serialVersionUID = 1L;
     public static final Register PLACE_HOLDER_REGISTER =
@@ -106,7 +106,7 @@ public class Machine extends Module implements Serializable, CPUSimConstants {
     // key = micro name, value = list of microinstructions
     private HashMap<String, ObservableList<Microinstruction>> microMap;
     // key = module name, value = list of modules
-    private HashMap<String, ObservableList<? extends Module>> moduleMap;
+    private HashMap<String, ObservableList<? extends CPUModule>> moduleMap;
     // Control unit for keeping track of index of micro within machine instruction
     private ControlUnit controlUnit;
     // The machine's fetch sequence
@@ -389,7 +389,7 @@ public class Machine extends Module implements Serializable, CPUSimConstants {
      * @param moduleType a String that describes the type of module
      * @return a Vector object
      */
-    public ObservableList<? extends Module> getModule(String moduleType) {
+    public ObservableList<? extends CPUModule> getModule(String moduleType) {
         return moduleMap.get(moduleType);
     }
 
@@ -621,7 +621,7 @@ public class Machine extends Module implements Serializable, CPUSimConstants {
     // use m and such that the value associated with each key is the List
     // of microinstructions that contains the key.
     public HashMap<Microinstruction, ObservableList<Microinstruction>> getMicrosThatUse
-    (Module m) {
+    (CPUModule m) {
         HashMap<Microinstruction, ObservableList<Microinstruction>> result =
                 new HashMap<>();
 
@@ -1007,7 +1007,7 @@ public class Machine extends Module implements Serializable, CPUSimConstants {
      * Test micros
      */
     public void changeStartBits() {
-        for (Module m : this.getModule("conditionBits")) {
+        for (CPUModule m : this.getModule("conditionBits")) {
             ConditionBit cb = (ConditionBit) m;
             cb.setBit(cb.getRegister().getWidth() - cb.getBit() - 1);
         }
@@ -1099,7 +1099,7 @@ public class Machine extends Module implements Serializable, CPUSimConstants {
         // DJS Do more here?
     }
 
-    public void copyDataTo(Module newModule) {
+    public void copyDataTo(CPUModule newModule) {
         assert newModule instanceof Machine : "Passed non-Machine to Machine.copyDataTo" +
                 "()";
         // DJS Do more here?

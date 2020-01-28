@@ -313,7 +313,7 @@ public class MachineWriter
                 out.println("\t<!-- none -->");
             else
                 for (int j = 0; j < moduleVectors[i].size(); j++)
-                    out.println("\t" + ((Module)
+                    out.println("\t" + ((CPUModule)
                             moduleVectors[i].get(j)).getXMLDescription());
         }
 

@@ -9,7 +9,7 @@
 package cpusim.model.microinstruction;
 
 import cpusim.model.Microinstruction;
-import cpusim.model.Module;
+import cpusim.model.CPUModule;
 import cpusim.xml.HtmlEncoder;
 
 /**
@@ -66,7 +66,7 @@ public class Comment extends Microinstruction
      * @param m the module that holds the microinstruction
      * @return boolean value true if this micro used the module
      */
-    public boolean uses(Module m)
+    public boolean uses(CPUModule m)
     {
         return false;
     }

@@ -7,7 +7,7 @@ package cpusim.model.microinstruction;
 
 import cpusim.model.Machine;
 import cpusim.model.Microinstruction;
-import cpusim.model.Module;
+import cpusim.model.CPUModule;
 import cpusim.model.module.ConditionBit;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -138,7 +138,7 @@ public class SetCondBit extends Microinstruction {
      * @param m the module that holds the microinstruction
      * @return boolean value true if this micro used the module
      */
-    public boolean uses(Module m){
+    public boolean uses(CPUModule m){
         return (m == bit.get());
     }
 }

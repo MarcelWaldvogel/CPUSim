@@ -8,7 +8,7 @@
 
 package cpusim.gui.editmodules.arrayregisters;
 
-import cpusim.model.Module;
+import cpusim.model.CPUModule;
 import cpusim.gui.util.EditingNonNegativeIntCell;
 import cpusim.gui.util.EditingLongCell;
 import cpusim.gui.util.EditingStrCell;
@@ -47,7 +47,7 @@ public class RegisterArrayTableView extends TableView implements Initializable {
 
     HashMap assocList;  //associates the current modules
     //with the edited clones; key = new clone, value = original
-    public Module[] clones;  //the current clones
+    public CPUModule[] clones;  //the current clones
     Node parentFrame; //for the parent of error messages
     String arrayName;
 
@@ -61,7 +61,7 @@ public class RegisterArrayTableView extends TableView implements Initializable {
         this.arrayName = arrayName;
         this.currentRegisters = registers;
         assocList = new HashMap();
-        clones = (Module[]) createClones();
+        clones = (CPUModule[]) createClones();
 
         parentFrame = null;
 
@@ -319,7 +319,7 @@ public class RegisterArrayTableView extends TableView implements Initializable {
      *
      * @return an array of clones of the current module.
      */
-    public Module[] getClones()
+    public CPUModule[] getClones()
     {
         assert clones != null :
                 "clones == null in ModuleFactory.getClones()";
@@ -331,9 +331,9 @@ public class RegisterArrayTableView extends TableView implements Initializable {
      * @param clone the clone of the original module
      * @return the original hardware module of the given clone.
      */
-    public Module getCurrentFromClone(Module clone)
+    public CPUModule getCurrentFromClone(CPUModule clone)
     {
-        return (Module) assocList.get(clone);
+        return (CPUModule) assocList.get(clone);
     }
 
     /**
@@ -344,12 +344,12 @@ public class RegisterArrayTableView extends TableView implements Initializable {
      */
     public Object[] createClones()
     {
-        ObservableList<? extends Module> currentModules = getCurrentModules();
-        Module[] clones = (Module[])
+        ObservableList<? extends CPUModule> currentModules = getCurrentModules();
+        CPUModule[] clones = (CPUModule[])
                 Array.newInstance(this.getModuleClass(), currentModules.size());
         for (int i = 0; i < currentModules.size(); i++) {
-            Module clone = (Module)
-                    ((Module) currentModules.get(i)).clone();
+            CPUModule clone = (CPUModule)
+                    ((CPUModule) currentModules.get(i)).clone();
             clones[i] = clone;
             assocList.put(clone, currentModules.get(i));
         }
@@ -365,12 +365,12 @@ public class RegisterArrayTableView extends TableView implements Initializable {
      * @param list a list of modules
      * @return a list of updated modules
      */
-    public Vector createNewModulesList(Module[] list)
+    public Vector createNewModulesList(CPUModule[] list)
     {
         Vector newModules = new Vector();
         for (int i = 0; i < list.length; i++) {
-            Module module = list[i];
-            Module oldModule = (Module) assocList.get(module);
+            CPUModule module = list[i];
+            CPUModule oldModule = (CPUModule) assocList.get(module);
             if (oldModule != null) {
                 //if the new incr is just an edited clone of an old module,
                 //then just copy the new data to the old module
@@ -394,7 +394,7 @@ public class RegisterArrayTableView extends TableView implements Initializable {
         try {
             Validate.allNamesAreUnique(modules);
             for (Object f : modules) {
-                Validate.nameIsNonEmpty(((Module)f).getName());
+                Validate.nameIsNonEmpty(((CPUModule)f).getName());
             }
         } catch (ValidationException e) {
             result = false;

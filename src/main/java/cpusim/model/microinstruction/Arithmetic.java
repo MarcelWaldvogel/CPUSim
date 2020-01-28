@@ -8,7 +8,7 @@ package cpusim.model.microinstruction;
 import cpusim.ExecutionException;
 import cpusim.model.Machine;
 import cpusim.model.Microinstruction;
-import cpusim.model.Module;
+import cpusim.model.CPUModule;
 import cpusim.model.module.ConditionBit;
 import cpusim.model.module.Register;
 import cpusim.util.CPUSimConstants;
@@ -271,7 +271,7 @@ public class Arithmetic extends Microinstruction {
      * @param m the module that holds the microinstruction
      * @return boolean value true if this micro used the module
      */
-    public boolean uses(Module m){
+    public boolean uses(CPUModule m){
         return (m == getSource1() || m == getSource2() || m == getDestination()
                 || m == getCarryBit() || m == getOverflowBit());
     }

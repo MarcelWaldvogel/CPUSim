@@ -133,7 +133,7 @@ public abstract class Microinstruction
     //------------------------------
     // returns true if this microinstruction uses m
     // (so if m is modified, this micro may need to be modified.
-    public abstract boolean uses(Module m);
+    public abstract boolean uses(CPUModule m);
 
 
 }  // end of class Microinstruction

@@ -15,7 +15,7 @@
 package cpusim.model.module;
 
 import cpusim.model.Machine;
-import cpusim.model.Module;
+import cpusim.model.CPUModule;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -27,7 +27,7 @@ import javafx.beans.property.SimpleObjectProperty;
  * or it can be set to 1 if an overflow or carry out occurs in an
  * Arithmetic or Increment microinstruction.
  */
-public class ConditionBit extends Module
+public class ConditionBit extends CPUModule
 {
 
     private SimpleObjectProperty<Register> register;  //the register containing the bit
@@ -130,7 +130,7 @@ public class ConditionBit extends Module
      * copies the data from the current module to a specific module
      * @param newConditionBit the micro instruction that will be updated
      */
-    public void copyDataTo(Module newConditionBit)
+    public void copyDataTo(CPUModule newConditionBit)
     {
         assert newConditionBit instanceof ConditionBit :
                 "Passed non-ConditionBit to ConditionBit.copyDataTo()";

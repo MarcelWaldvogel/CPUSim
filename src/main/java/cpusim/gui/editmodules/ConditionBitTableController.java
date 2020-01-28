@@ -12,7 +12,7 @@
 package cpusim.gui.editmodules;
 
 import cpusim.Mediator;
-import cpusim.model.Module;
+import cpusim.model.CPUModule;
 import cpusim.gui.util.EditingNonNegativeIntCell;
 import cpusim.gui.util.EditingStrCell;
 import cpusim.gui.util.FXMLLoaderFactory;
@@ -74,7 +74,7 @@ public class ConditionBitTableController extends ModuleController implements Ini
         this.currentModules = machine.getModule("conditionBits");
         this.registerController = registerController;
         this.arrayController = arrayController;
-        clones = (Module[]) createClones();
+        clones = (CPUModule[]) createClones();
         fixClonesToUseCloneRegisters();
 
         FXMLLoader fxmlLoader = FXMLLoaderFactory.fromRootController(this, "ConditionBitTable.fxml");
@@ -235,7 +235,7 @@ public class ConditionBitTableController extends ModuleController implements Ini
      * getter for prototype of the right subclass
      * @return the prototype of the subclass
      */
-    public Module getPrototype()
+    public CPUModule getPrototype()
     {
         ObservableList<Register> registers = registerController.getTable().getItems();
         ObservableList<RegisterArray> arrays = arrayController.getTable().getItems();
@@ -351,7 +351,7 @@ public class ConditionBitTableController extends ModuleController implements Ini
      * @param theModule an module object
      * @return a vector of the conditionBit clones
      */
-    public Vector getBitClonesThatUse(Module theModule)
+    public Vector getBitClonesThatUse(CPUModule theModule)
     {
         Vector result = new Vector();
         if (theModule instanceof Register) {
@@ -381,7 +381,7 @@ public class ConditionBitTableController extends ModuleController implements Ini
      * @param list a list of modules
      * @return a new list of updated ConditionBits
      */
-    public Vector createNewModulesList(Module[] list)
+    public Vector createNewModulesList(CPUModule[] list)
     {
         Vector newBits = new Vector();
         for (int i = 0; i < list.length; i++) {

@@ -7,7 +7,7 @@ package cpusim.model.microinstruction;
 
 import cpusim.model.Machine;
 import cpusim.model.Microinstruction;
-import cpusim.model.Module;
+import cpusim.model.CPUModule;
 import cpusim.model.module.Register;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -262,7 +262,7 @@ public class TransferRtoR extends Microinstruction {
      * @param m the module that holds the microinstruction
      * @return boolean value true if this micro used the module
      */
-    public boolean uses(Module m){
+    public boolean uses(CPUModule m){
         return (m == source.get() || m == dest.get());
     }
 

@@ -25,7 +25,7 @@
 package cpusim.gui.editmodules;
 
 import cpusim.Mediator;
-import cpusim.model.Module;
+import cpusim.model.CPUModule;
 import cpusim.gui.util.EditingNonNegativeIntCell;
 import cpusim.gui.util.EditingStrCell;
 import cpusim.gui.util.EditingLongCell;
@@ -77,7 +77,7 @@ public class RegistersTableController
         super(mediator);
         this.currentModules = machine.getModule("registers");
         this.prototype = new Register("???", 16, 0, false);
-        clones = (Module[]) createClones();
+        clones = (CPUModule[]) createClones();
 
         FXMLLoader fxmlLoader = FXMLLoaderFactory.fromRootController(this, "RegistersTable.fxml");
 
@@ -226,7 +226,7 @@ public class RegistersTableController
      * getter for prototype of the right subclass
      * @return the prototype of the subclass
      */
-    public Module getPrototype()
+    public CPUModule getPrototype()
     {
         return prototype;
     }

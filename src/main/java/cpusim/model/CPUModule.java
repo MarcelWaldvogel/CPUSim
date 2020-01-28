@@ -33,7 +33,7 @@ import java.io.Serializable;
 ///////////////////////////////////////////////////////////////////////////////
 // the Module class
 
-public abstract class Module
+public abstract class CPUModule
         implements Cloneable, Serializable, NamedObject
 {
     private SimpleStringProperty name;	//name of the module
@@ -43,7 +43,7 @@ public abstract class Module
     //------------------------------
     // constructor
 
-    public Module(String name)
+    public CPUModule(String name)
     {
         this.name = new SimpleStringProperty(name);
 
@@ -55,7 +55,7 @@ public abstract class Module
             ID = s.substring(7, index) + s.substring(index + 1);
     }
     
-    public Module(String name, Machine machine){
+    public CPUModule(String name, Machine machine){
         this(name);
         this.machine = machine;
     }
@@ -102,7 +102,7 @@ public abstract class Module
     // abstract methods
     // These methods should be overridden by all subclasses
 
-    public abstract void copyDataTo(Module oldModule);
+    public abstract void copyDataTo(CPUModule oldModule);
 
     public abstract Object clone();
 
