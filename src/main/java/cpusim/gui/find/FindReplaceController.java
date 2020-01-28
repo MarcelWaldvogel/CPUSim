@@ -9,7 +9,7 @@ package cpusim.gui.find;
  */
 
 import com.sun.javafx.scene.control.behavior.TextInputControlBehavior;
-import com.sun.javafx.scene.control.skin.TextInputControlSkin;
+import javafx.scene.control.skin.TextInputControlSkin;
 import cpusim.Mediator;
 import cpusim.gui.desktop.DesktopController;
 import javafx.beans.value.ChangeListener;
